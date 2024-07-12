@@ -34,27 +34,23 @@ cleveref
 geometry
 imakeidx
 ```
-It also requires some MnSymbol fonts.
+It also requires some `MnSymbol` fonts.
 
 ### General use
 
 One might use thaumazo in the following way.
 ```latex
-\documentclass [twoside] {article}
+\documentclass[twoside]{article}
 
-\def \ttitle {Motives} % optional
-\def \tteacher {Pierre Deligne} % optional
+\def\ttitle{Motives}%optional
+\def\tteacher{Pierre Deligne}%optional
 
-\usepackage [course] {thaumazo}
+\usepackage[course]{thaumazo}
 
-\begin {document}
+\begin{document}
 ...
 ```
 
-### Behaviour of `\maketitle`
-
-
-### Options
-
-
-θαυμάζω was Greek for ``I am amazed.''
+[comment]: <> (### Behaviour of `\maketitle`)
+[comment]: <> (### Options)
+[comment]: <> (θαυμάζω)
