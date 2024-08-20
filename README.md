@@ -36,7 +36,7 @@ imakeidx
 ```
 It also requires some `MnSymbol` fonts.
 
-In particular, if using XeTeX, you will need to remove the part of the style file below or to add `MnSymbol7.otf` and `MnSymbol10.otf` to the font book on your computer.
+In particular, if using XeTeX, you will need to remove the part of the style file below or to add `MnSymbol7.otf` and `MnSymbol10.otf` to the font book on your computer, perhaps from [CTAN](https://ctan.org/tex-archive/fonts/mnsymbol/otf).
 ```latex
 \ifxetex
   \font\ten=MnSymbol10
