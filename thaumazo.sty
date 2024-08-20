@@ -35,7 +35,8 @@
 
 %%
 
-
+\RequirePackage{ifxetex}
+%
 \RequirePackage{tipa}
 %
 \RequirePackage[usenames,svgnames,dvipsnames]{xcolor}
@@ -152,8 +153,8 @@
 \newcommand{\kCondSet}[1]{#1\operatorname{-CondSet}}
 \newcommand{\from}{\leftarrow}
 \newcommand{\inhom}{\underline{\Hom}}
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\nnorm}{\norm{\,\cdot\,}}
 \newcommand{\du}[1]{\underline{\underline{#1}}}
 
@@ -427,6 +428,15 @@
 \DeclareMathSymbol{\notin}{\mathrel}{MnSyD}{182}
 
 %cannot do complement,(,[,etc.
+
+%but we can
+\ifxetex
+  \font\ten=MnSymbol10
+  \font\seven=MnSymbol7
+  \let\complement\relax
+  \newcommand\complement{\text{\ten\char"2201}}
+  \newcommand\complementss{\text{\seven\char"2201}}%for superscript
+\fi
 
 
 \makeatletter
@@ -749,7 +759,7 @@
         \raggedright
         \iftitlesamepage\else\vspace*{\fill}\fi
         \begin{center}
-          {\Large\sc\ttitle}\\\vspace*{1em}
+          {\Large\sc \ttitle}\\\vspace*{1em}
           \ifdefined\tteacher
             {\large Based on lectures by \tteacher}\\[0.1em]
           \fi
@@ -759,7 +769,7 @@
           {\small Last updated on \today}\\
           \ifdefined\tterm
             \vspace*{1em}
-            {\normalsize\tterm}\\
+            {\normalsize \tterm}\\
           \fi
           \vspace*{2em}
         \end{center}
