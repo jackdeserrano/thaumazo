@@ -43,7 +43,7 @@
 %
 \RequirePackage{amsthm,amssymb,amsfonts}
 \RequirePackage[leqno]{amsmath}
-%
+%keep amsmath
 \RequirePackage{microtype}
 %
 \RequirePackage{enumitem}
@@ -371,13 +371,35 @@
   <10-12> MnSymbolD10
   <12-> MnSymbolD12}{}
 
+\DeclareFontFamily{OMX}{MnSymbolE}{}
+\DeclareFontShape{OMX}{MnSymbolE}{m}{n}{
+    <-6>  MnSymbolE5
+   <6-7>  MnSymbolE6
+   <7-8>  MnSymbolE7
+   <8-9>  MnSymbolE8
+   <9-10> MnSymbolE9
+  <10-12> MnSymbolE10
+  <12->   MnSymbolE12}{}
+  
+\DeclareFontFamily{U}{MnSymbolF}{}
+\DeclareFontShape{U}{MnSymbolF}{m}{n}{
+    <-6>  MnSymbolF5
+   <6-7>  MnSymbolF6
+   <7-8>  MnSymbolF7
+   <8-9>  MnSymbolF8
+   <9-10> MnSymbolF9
+  <10-12> MnSymbolF10
+  <12-> MnSymbolF12}{}
 
 
-%I cannot see a way to `\DeclareFontFamily{OMX}{MnSymbolE}{}\n \DeclareFontShape{OMX}{MnSymbolE}{m}{n}[...]\DeclareSymbolFont{largesymbols}{OMX}{MnSymbolE}{m}{n}\n \DeclareMathDelimiter{(}{\mathopen}{largesymbols}{'210}{largesymbols}{'210}[...]` without screwing up every other symbol. It's not obvious to me why this one overwrites the other symbols while the other substitutions do not.
 
-\DeclareSymbolFont{MnSyA}{U}{MnSymbolA}{m}{n}
-\DeclareSymbolFont{MnSyC}{U}{MnSymbolC}{m}{n}
-\DeclareSymbolFont{MnSyD}{U}{MnSymbolD}{m}{n}
+%(RESOLVED:`symbols` is used by amsmath) I cannot see a way to `\DeclareFontFamily{OMX}{MnSymbolE}{}\n\DeclareFontShape{OMX}{MnSymbolE}{m}{n}[...]\DeclareSymbolFont{largesymbols}{OMX}{MnSymbolE}{m}{n}\n \DeclareMathDelimiter{(}{\mathopen}{largesymbols}{'210}{largesymbols}{'210}[...]` without screwing up every other symbol. It's not obvious to me why this one overwrites the other symbols while the other substitutions do not.
+
+\DeclareSymbolFont{MnSyA}  {U}{MnSymbolA}{m}{n}
+\DeclareSymbolFont{MnSyC}  {U}{MnSymbolC}{m}{n}
+\DeclareSymbolFont{MnSyD}  {U}{MnSymbolD}{m}{n}
+\DeclareSymbolFont{MnSyE}{OMX}{MnSymbolE}{m}{n}
+\DeclareSymbolFont{MnSyF}  {U}{MnSymbolF}{m}{n}
 
 
 
@@ -427,16 +449,16 @@
 \let\notin\relax
 \DeclareMathSymbol{\notin}{\mathrel}{MnSyD}{182}
 
-%cannot do complement,(,[,etc.
+\makeatletter
+\DeclareMathSymbol{\tcomplement}{\mathop}{MnSyF}{134}
+\DeclareMathSymbol{\dcomplement}{\mathop}{MnSyF}{135}
+\def\complement{\DOTSB\tcomplement\slimits@}
+\makeatother
 
-%but we can
-\ifxetex
-  \font\ten=MnSymbol10
-  \font\seven=MnSymbol7
-  \let\complement\relax
-  \newcommand\complement{\text{\ten\char"2201}}
-  \newcommand\complementss{\text{\seven\char"2201}}%for superscript
-\fi
+\DeclareMathDelimiter{[}{\mathopen}{MnSyE}{'000}{MnSyE}{'000}
+\DeclareMathDelimiter{]}{\mathclose}{MnSyE}{'005}{MnSyE}{'005}
+%\DeclareMathDelimiter{(}{\mathopen}{MnSyE}{'210}{MnSyE}{'210}
+%\DeclareMathDelimiter{)}{\mathclose}{MnSyE}{'215}{MnSyE}{'215}
 
 
 \makeatletter
