@@ -36,17 +36,6 @@ imakeidx
 ```
 It also requires some `MnSymbol` fonts.
 
-In particular, if using XeTeX, you will need to remove the part of the style file below or to add `MnSymbol7.otf` and `MnSymbol10.otf` to the font book on your computer, perhaps from [CTAN](https://ctan.org/tex-archive/fonts/mnsymbol/otf).
-```latex
-\ifxetex
-  \font\ten=MnSymbol10
-  \font\seven=MnSymbol7
-  \let\complement\relax
-  \newcommand\complement{\text{\ten\char"2201}}
-  \newcommand\complementss{\text{\seven\char"2201}}%for superscript
-\fi
-```
-
 ### General use
 
 One might use thaumazo in the following way.
