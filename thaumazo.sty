@@ -15,6 +15,7 @@
 \newif\ifuprighttheorem\uprighttheoremfalse
 \newif\ifaug\augtrue
 \newif\ifold\oldfalse
+\newif\ifnewcontents\newcontentstrue
 
 
 \DeclareOption{course}{\coursetrue}%does nothing
@@ -28,6 +29,7 @@
 \DeclareOption{uprighttheorem}{\uprighttheoremtrue}
 \DeclareOption{noaug}{\augfalse}
 \DeclareOption{old}{\oldtrue}
+\DeclareOption{oldcontents}{\newcontentsfalse}
 
 
 \ProcessOptions\relax
@@ -62,11 +64,11 @@
 %
 \RequirePackage[usestackEOL]{stackengine}
 %
-\RequirePackage[T1]{fontenc}
+%\RequirePackage[T1]{fontenc}
 %
-\RequirePackage[utf8x]{inputenc}
+%\RequirePackage[utf8x]{inputenc}
 %
-\RequirePackage[scaled]{beramono}
+%\RequirePackage[scaled]{beramono}
 %
 \RequirePackage{regexpatch}
 %
@@ -74,7 +76,7 @@
 \setlength{\headheight}{15pt}
 %
 \RequirePackage{mathrsfs}
-\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+%\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 %
 \RequirePackage{imakeidx}
 %
@@ -91,6 +93,8 @@
 \fi
 %
 \RequirePackage{booktabs}
+%
+%\RequirePackage{eucal}
 %
 
 
@@ -137,7 +141,7 @@
 %misc.
 \newcommand{\adj}{\rightleftharpoons}
 \newcommand{\eps}{\varepsilon}
-\newcommand{\etco}{H\sub{\'et}}
+\newcommand{\etco}{{\operatorname{H}}\sub{\'et}}
 \newcommand{\inv}{^{-1}}
 \newcommand{\isomto}{\cong}
 \newcommand{\ol}{\overline}
@@ -157,6 +161,7 @@
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\nnorm}{\norm{\,\cdot\,}}
 \newcommand{\du}[1]{\underline{\underline{#1}}}
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
 
 
 %%``operators''
@@ -339,7 +344,8 @@
 %%custom symbol fonts
 
 
-\ifaug 
+\DeclareRobustCommand{\coloneq}{\mathrel{{:}{=}}}
+\ifaug
 
 \DeclareFontFamily{U}{MnSymbolA}{}
 \DeclareFontShape{U}{MnSymbolA}{m}{n}{
@@ -350,6 +356,16 @@
   <9-10> MnSymbolA9
   <10-12> MnSymbolA10
   <12-> MnSymbolA12}{}
+  
+\DeclareFontFamily{U}{MnSymbolB}{}
+\DeclareFontShape{U}{MnSymbolB}{m}{n}{
+  <-6> MnSymbolB5
+  <6-7> MnSymbolB6
+  <7-8> MnSymbolB7
+  <8-9> MnSymbolB8
+  <9-10> MnSymbolB9
+  <10-12> MnSymbolB10
+  <12-> MnSymbolB12}{}
 
 \DeclareFontFamily{U}{MnSymbolC}{}
 \DeclareFontShape{U}{MnSymbolC}{m}{n}{
@@ -393,9 +409,10 @@
 
 
 
-%(RESOLVED:`symbols` is used by amsmath) I cannot see a way to `\DeclareFontFamily{OMX}{MnSymbolE}{}\n\DeclareFontShape{OMX}{MnSymbolE}{m}{n}[...]\DeclareSymbolFont{largesymbols}{OMX}{MnSymbolE}{m}{n}\n \DeclareMathDelimiter{(}{\mathopen}{largesymbols}{'210}{largesymbols}{'210}[...]` without screwing up every other symbol. It's not obvious to me why this one overwrites the other symbols while the other substitutions do not.
+%(RESOLVED:`symbols` is used by amsmath)
 
 \DeclareSymbolFont{MnSyA}  {U}{MnSymbolA}{m}{n}
+\DeclareSymbolFont{MnSyB}  {U}{MnSymbolB}{m}{n}
 \DeclareSymbolFont{MnSyC}  {U}{MnSymbolC}{m}{n}
 \DeclareSymbolFont{MnSyD}  {U}{MnSymbolD}{m}{n}
 \DeclareSymbolFont{MnSyE}{OMX}{MnSymbolE}{m}{n}
@@ -411,16 +428,23 @@
 \DeclareMathSymbol{\updownarrow}{\mathrel}{MnSyA}{17}
 \let\hookrightarrow\relax
 \DeclareMathSymbol{\hookrightarrow}{\mathrel}{MnSyA}{48}
+\DeclareMathSymbol{\restriction}{\mathord}{MnSyA}{73}
 \DeclareMathSymbol{\twoheadrightarrow}{\mathrel}{MnSyA}{24}
 \DeclareMathSymbol{\rightleftharpoons}{\mathrel}{MnSyA}{88}
 \DeclareMathSymbol{\rightrightarrows}{\mathrel}{MnSyA}{144}
 \DeclareMathSymbol{\leadsto}{\mathrel}{MnSyA}{160}
+\DeclareMathSymbol{\nrightarrow}{\mathrel}{MnSyB}{0}
+\DeclareMathSymbol{\nto}{\mathrel}{MnSyB}{0}
 \DeclareMathSymbol{\setminus}{\mathrel}{MnSyC}{19}
 \DeclareMathSymbol{\cupdot}{\mathbin}{MnSyC}{60}
 \DeclareMathSymbol{\triangle}{\mathrel}{MnSyC}{81}
+\DeclareMathSymbol{\smallsquare}{\mathrel}{MnSyC}{104}
+\DeclareMathSymbol{\filledsquare}{\mathrel}{MnSyC}{105}
 \DeclareMathSymbol{\square}{\mathrel}{MnSyC}{106}
 \DeclareMathSymbol{\diamond}{\mathrel}{MnSyC}{108}
 \let\lozenge\relax
+\DeclareMathSymbol{\smalllozenge}{\mathrel}{MnSyC}{195}
+\DeclareMathSymbol{\filledlozenge}{\mathrel}{MnSyC}{195}
 \DeclareMathSymbol{\lozenge}{\mathrel}{MnSyC}{197}
 \DeclareMathSymbol{\ast}{\mathbin}{MnSyC}{135}
 \DeclareMathSymbol{\emptyset}{\mathord}{MnSyC}{103}
@@ -435,19 +459,73 @@
 \DeclareMathSymbol{\vee}{\mathbin}{MnSyC}{45}
 \DeclareMathSymbol{\forall}{\mathord}{MnSyC}{166}
 \DeclareMathSymbol{\exists}{\mathord}{MnSyC}{167}
+%\DeclareMathSymbol{\aleph}{\mathord}{MnSyC}{175}
+%\DeclareMathSymbol{\beth}{\mathord}{MnSyC}{176}
+%\DeclareMathSymbol{\gimel}{\mathord}{MnSyC}{177}
 \DeclareMathSymbol{\sim}{\mathrel}{MnSyD}{2}
+\DeclareMathSymbol{\simeq}{\mathrel}{MnSyD}{8}
+\DeclareMathSymbol{\nsim}{\mathrel}{MnSyD}{122}
+\DeclareMathSymbol{\approx}{\mathrel}{MnSyD}{4}
 \DeclareMathSymbol{\in}{\mathrel}{MnSyD}{62}
 \DeclareMathSymbol{\ni}{\mathrel}{MnSyD}{63}
 \DeclareMathSymbol{\subset}{\mathrel}{MnSyD}{96}
+\DeclareMathSymbol{\nsubset}{\mathrel}{MnSyD}{216}
 \DeclareMathSymbol{\supset}{\mathrel}{MnSyD}{97}
+\DeclareMathSymbol{\nsupset}{\mathrel}{MnSyD}{217}
 \DeclareMathSymbol{\subseteq}{\mathrel}{MnSyD}{98}
+\DeclareMathSymbol{\nsubseteq}{\mathrel}{MnSyD}{218}
 \DeclareMathSymbol{\supseteq}{\mathrel}{MnSyD}{99}
+\DeclareMathSymbol{\nsupseteq}{\mathrel}{MnSyD}{219}
+\DeclareMathSymbol{\prec}{\mathrel}{MnSyD}{104}
+\DeclareMathSymbol{\preceq}{\mathrel}{MnSyD}{108}
+\DeclareMathSymbol{\npreceq}{\mathrel}{MnSyD}{228}
+\DeclareMathSymbol{\succeq}{\mathrel}{MnSyD}{109}
 \DeclareMathSymbol{\subsetneq}{\mathrel}{MnSyD}{248}
 \DeclareMathSymbol{\supsetneq}{\mathrel}{MnSyD}{249}
 \DeclareMathSymbol{\subsetneqq}{\mathrel}{MnSyD}{250}
 \DeclareMathSymbol{\supsetneqq}{\mathrel}{MnSyD}{251}
 \let\notin\relax
 \DeclareMathSymbol{\notin}{\mathrel}{MnSyD}{182}
+\DeclareMathSymbol{-}{\mathbin}{MnSyC}{16}
+\DeclareMathSymbol{\medvert}{\mathbin}{MnSyC}{17}
+\DeclareMathSymbol{\medslash}{\mathbin}{MnSyC}{18}
+\DeclareMathSymbol{-}{\mathbin}{MnSyC}{16}
+\DeclareMathSymbol{\dotminus}{\mathbin}{MnSyC}{24}
+\DeclareMathSymbol{\shortmid}{\mathbin}{MnSyC}{17}
+\DeclareMathSymbol{+}{\mathbin}{MnSyC}{20}
+\DeclareMathSymbol{\times}{\mathbin}{MnSyC}{21}
+\DeclareMathSymbol{\pm}{\mathbin}{MnSyC}{22}
+\DeclareMathSymbol{\mp}{\mathbin}{MnSyC}{23}
+\let\models\relax
+\DeclareMathSymbol{\models}{\mathrel}{MnSyA}{224}
+\DeclareMathSymbol{\nmodels}{\mathrel}{MnSyB}{224}
+\DeclareMathSymbol{<}{\mathrel}{MnSyD}{64}
+\DeclareMathSymbol{>}{\mathrel}{MnSyD}{65}
+\DeclareMathSymbol{\le}{\mathrel}{MnSyD}{66}
+\DeclareMathSymbol{\ge}{\mathrel}{MnSyD}{67}
+\DeclareMathSymbol{\lhd}{\mathrel}{MnSyD}{84}
+\DeclareMathSymbol{\rhd}{\mathrel}{MnSyD}{85}
+\DeclareMathSymbol{\unlhd}{\mathrel}{MnSyD}{86}
+\DeclareMathSymbol{\unrhd}{\mathrel}{MnSyD}{87}
+\DeclareMathSymbol{=}{\mathrel}{MnSyD}{0}
+\DeclareMathSymbol{\equiv}{\mathrel}{MnSyD}{1}
+\let\ne\relax
+\DeclareMathSymbol{\ne}{\mathrel}{MnSyD}{120}
+\let\ne\relax
+\DeclareMathSymbol{\ne}{\mathrel}{MnSyD}{120}
+\DeclareMathSymbol{\nequiv}{\mathrel}{MnSyD}{121}
+\DeclareMathSymbol{\nisomto}{\mathrel}{MnSyD}{132}
+\let\vdash\relax
+\DeclareMathSymbol{\vdash}{\mathrel}{MnSyA}{216}
+\DeclareMathSymbol{\nvdash}{\mathrel}{MnSyB}{216}
+\newcommand{\irule}[2]{${\rm#1}\super{\sc(\romannumeral#2)}$}
+\let\{\relax
+\let\}\relax
+\DeclareMathDelimiter{\{}{\mathopen}{MnSyE}{'230}{MnSyE}{'230}
+\DeclareMathDelimiter{\}}{\mathclose}{MnSyE}{'235}{MnSyE}{'235}
+\def\cases{\left\{\def\arraystretch{1.2}\hskip-\arraycolsep
+  \array{l@{\quad}l}}
+\def\endcases{\endarray\hskip-\arraycolsep\right.}
 
 \makeatletter
 \DeclareMathSymbol{\tcomplement}{\mathop}{MnSyF}{134}
@@ -455,10 +533,17 @@
 \def\complement{\DOTSB\tcomplement\slimits@}
 \makeatother
 
-\DeclareMathDelimiter{[}{\mathopen}{MnSyE}{'000}{MnSyE}{'000}
-\DeclareMathDelimiter{]}{\mathclose}{MnSyE}{'005}{MnSyE}{'005}
+%\DeclareMathDelimiter{[}{\mathopen}{MnSyE}{'000}{MnSyE}{'000}
+%\DeclareMathDelimiter{]}{\mathclose}{MnSyE}{'005}{MnSyE}{'005}
+\DeclareMathDelimiter{\ulcorner}{\mathopen}{MnSyE}{'036}{MnSyE}{'036}
+\DeclareMathDelimiter{\urcorner}{\mathclose}{MnSyE}{'043}{MnSyE}{'43}
 %\DeclareMathDelimiter{(}{\mathopen}{MnSyE}{'210}{MnSyE}{'210}
 %\DeclareMathDelimiter{)}{\mathclose}{MnSyE}{'215}{MnSyE}{'215}
+
+\let\ulcornertemp\ulcorner
+\let\urcornertemp\urcorner
+\def\ulcorner{\left\ulcornertemp}
+\def\urcorner{\right\urcornertemp}
 
 
 \makeatletter
@@ -475,7 +560,7 @@
   \hbox{$#1\mkern-2mu\box\z@\mkern-2mu$}\hfill
   \mkern-6mu\mathord\rightarrow$}
 
-%ideas: get longleftarrow,relbar (leftrightline) from mnsymbol . . . also need somehow to smash subscript of the varprojlim . . .
+%ideas: get longleftarrow,relbar(leftrightline) from mnsymbol . . . also need somehow to smash subscript of the varprojlim . . .
 
 \def\underarrow@#1#2#3{%
  \vtop{\ialign{##\crcr$\m@th\hfil#2#3\hfil$\crcr
@@ -493,11 +578,112 @@
 
 \makeatother
 
+\makeatletter
+\DeclareMathSymbol{\downbrace}    {\mathord}{MnSyE}{'251}
+\DeclareMathSymbol{\downbraceg}   {\mathord}{MnSyE}{'252}
+\DeclareMathSymbol{\downbracegg}  {\mathord}{MnSyE}{'253}
+\DeclareMathSymbol{\downbraceggg} {\mathord}{MnSyE}{'254}
+\DeclareMathSymbol{\downbracegggg}{\mathord}{MnSyE}{'255}
+\DeclareMathSymbol{\upbrace}      {\mathord}{MnSyE}{'256}
+\DeclareMathSymbol{\upbraceg}     {\mathord}{MnSyE}{'257}
+\DeclareMathSymbol{\upbracegg}    {\mathord}{MnSyE}{'260}
+\DeclareMathSymbol{\upbraceggg}   {\mathord}{MnSyE}{'261}
+\DeclareMathSymbol{\upbracegggg}  {\mathord}{MnSyE}{'262}
+\DeclareMathSymbol{\braceld}      {\mathord}{MnSyE}{'263}
+\DeclareMathSymbol{\bracelu}      {\mathord}{MnSyE}{'264}
+\DeclareMathSymbol{\bracerd}      {\mathord}{MnSyE}{'265}
+\DeclareMathSymbol{\braceru}      {\mathord}{MnSyE}{'266}
+\DeclareMathSymbol{\bracemd}      {\mathord}{MnSyE}{'267}
+\DeclareMathSymbol{\bracemu}      {\mathord}{MnSyE}{'270}
+\DeclareMathSymbol{\bracemid}     {\mathord}{MnSyE}{'271}
+% \horiz@expandable{sym1}..{sym6}{style}{arg}
+
+\def\horiz@expandable#1#2#3#4#5#6#7#8{%
+  \@mathmeasure\z@#7{#8}%
+  \@tempdima=\wd\z@
+  \@mathmeasure\z@#7{#1}%
+  \ifdim\noexpand\wd\z@>\@tempdima
+    $\m@th#7#1$%
+  \else
+    \@mathmeasure\z@#7{#2}%
+    \ifdim\noexpand\wd\z@>\@tempdima
+      $\m@th#7#2$%
+    \else
+      \@mathmeasure\z@#7{#3}%
+      \ifdim\noexpand\wd\z@>\@tempdima
+        $\m@th#7#3$%
+      \else
+        \@mathmeasure\z@#7{#4}%
+        \ifdim\noexpand\wd\z@>\@tempdima
+          $\m@th#7#4$%
+        \else
+          \@mathmeasure\z@#7{#5}%
+          \ifdim\noexpand\wd\z@>\@tempdima
+            $\m@th#7#5$%
+          \else
+           #6#7%
+          \fi
+        \fi
+      \fi
+    \fi
+  \fi}
+
+\def\overbrace@expandable#1#2#3{\vbox{\m@th\ialign{##\crcr
+  #1#2{#3}\crcr\noalign{\kern2\p@\nointerlineskip}%
+  $\m@th\hfil#2#3\hfil$\crcr}}}
+\def\underbrace@expandable#1#2#3{\vtop{\m@th\ialign{##\crcr
+  $\m@th\hfil#2#3\hfil$\crcr
+  \noalign{\kern2\p@\nointerlineskip}%
+  #1#2{#3}\crcr}}}
+
+\def\overbrace@#1#2#3{\vbox{\m@th\ialign{##\crcr
+  #1#2\crcr\noalign{\kern2\p@\nointerlineskip}%
+  $\m@th\hfil#2#3\hfil$\crcr}}}
+\def\underbrace@#1#2#3{\vtop{\m@th\ialign{##\crcr
+  $\m@th\hfil#2#3\hfil$\crcr
+  \noalign{\kern2\p@\nointerlineskip}%
+  #1#2\crcr}}}
+
+\def\bracefill@#1#2#3#4#5{$\m@th#5#1\leaders\hbox{$#4$}\hfill#2\leaders\hbox{$#4$}\hfill#3$}
+
+\def\downbracefill@{\bracefill@\braceld\bracemd\bracerd\bracemid}
+\def\upbracefill@{\bracefill@\bracelu\bracemu\braceru\bracemid}
+\def\downgroupfill@{\bracefill@\braceld{}\bracerd\bracemid}
+\def\upgroupfill@{\bracefill@\bracelu{}\braceru\bracemid}
+\def\linesegmentfill@{\arrowfill@\leftfootline\relbar\rightfootline}
+\def\leftharpoonfill@{\arrowfill@\leftharpoondown\relbar\relbar}
+\def\rightharpoonfill@{\arrowfill@\relbar\relbar\rightharpoonup}
+
+\DeclareRobustCommand{\downbracefill}{\downbracefill@\textstyle}
+\DeclareRobustCommand{\upbracefill}{\upbracefill@\textstyle}
+
+\def\upbrace@expandable{%
+  \horiz@expandable
+    \upbrace
+    \upbraceg
+    \upbracegg
+    \upbraceggg
+    \upbracegggg
+    \upbracefill@}
+\def\downbrace@expandable{%
+  \horiz@expandable
+    \downbrace
+    \downbraceg
+    \downbracegg
+    \downbraceggg
+    \downbracegggg
+    \downbracefill@}
+
+\DeclareRobustCommand{\overbrace}[1]{\mathop{\mathpalette{\overbrace@expandable\downbrace@expandable}{#1}}\limits}
+\DeclareRobustCommand{\underbrace}[1]{\mathop{\mathpalette{\underbrace@expandable\upbrace@expandable}{#1}}\limits}
+\makeatother
+
 \fi
 
 
 %%
 
+\ifnewcontents
 \def\tableofcontents{
 \section*{Contents}
 \newread\tcr
@@ -511,6 +697,7 @@
 \newwrite\tc%can we put this outside the command?
 \openout\tc=\jobname.toc
 }
+\fi
 
 \makeatletter
 
@@ -518,21 +705,21 @@
 
 \newcommand\tempsection[1]{
 	\section{{#1}}
-	\immediate\write\tc{\noindent\hbox to 5em{\hbox{\thesection.}}\noexpand#1\hfill\thepage\par}
+	\immediate\write\tc{\noindent\hbox to24pt{\hbox{\thesection.}}\noexpand#1\hfill\thepage\par}
 }
 
 \newcommand\tempsubsection[1]{
 	\subsection{{#1}}
-	\immediate\write\tc{\noindent\hbox to 5em{\hbox{\thesubsection.}}\noexpand#1\hfill\thepage\par}
+	\immediate\write\tc{\noindent\hbox to36pt{\hbox{\thesubsection.}}\noexpand#1\hfill\thepage\par}
 }
 
 %%
 
 
-\setenumerate[1]{label=\normalfont(\roman*)}
-\setenumerate[2]{label=\normalfont(\alph*)}
+\setenumerate[1]{label=\normalfont\roman*)}
+\setenumerate[2]{label=\normalfont\alph*)}
 
-\setlist[enumerate]{label=\normalfont(\roman*),topsep=0em,itemsep=0em,leftmargin=*}
+\setlist[enumerate]{label=\normalfont(\roman*),itemsep=0em,leftmargin=*}%topsep=0pt
 
 \setlist[itemize]{label=---,leftmargin=*}%topsep=0em
 
@@ -636,7 +823,7 @@
     {\sc}
     {.}
     {1em}
-    {\thmname{#1}\thmnumber{ #2}{\thmnote{ {\rm (#3)}}}}
+    {\thmname{#1}\thmnumber{ #2}{\thmnote{ {\rm [#3]}}}}
     %\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}
 
   \newtheoremstyle{defn}
@@ -647,34 +834,34 @@
     {\sc}
     {.}
     {1em}
-    {\thmname{#1}\thmnumber{ #2}{\thmnote{ {\rm (#3)}}}}   
+    {\thmname{#1}\thmnumber{ #2}{\thmnote{ {\rm [#3]}}}}   
 
   \newtheoremstyle{remark}
     {0.5\baselineskip}
     {0.5\baselineskip}
     {}
     {\parindent}
-    {\it}
+    {\sc}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     {.}
     {1em}
-    {\thmname{#1}\thmnumber{ #2}{\thmnote{ {\rm (#3)}}}} 
+    {\thmname{#1}\thmnumber{ #2}{\thmnote{ {\rm [#3]}}}} 
 
   \newtheoremstyle{proof}
     {0.5\baselineskip}
     {0.5\baselineskip}
     {}
     {\parindent}
-    {\it}
+    {\sc}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     {.}
     {1em}
-    {\thmname{#1}{\thmnote{ {\rm (#3)}}}}
+    {\thmname{#1}{\thmnote{ {\rm [#3]}}}}
 
 \else
   
   \newtheoremstyle{thm}
-    {1em}
-    {1em}
-    {\ifuprighttheorem\else\slshape\fi}
+    {\baselineskip}
+    {\baselineskip}
+    {\ifuprighttheorem\else\it\fi}%%%edit
     {0em}
     {\bf}
     {}
@@ -682,9 +869,9 @@
     {\thmname{#1}\thmnumber{ #2.}{\thmnote{ {\normalfont\sc #3.}}}}
     %\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}
 
-  \newtheoremstyle {defn}
-    {1em}
-    {1em}
+  \newtheoremstyle{defn}
+    {\baselineskip}
+    {\baselineskip}
     {}
     {0em}
     {\bf}
@@ -693,8 +880,8 @@
     {\thmname{#1}\thmnumber{ #2.}{\thmnote{ {\normalfont\sc #3.}}}}    
 
   \newtheoremstyle{remark}
-    {1em}
-    {1em}
+    {\baselineskip}
+    {\baselineskip}
     {}
     {0em}
     {\bf}
@@ -703,8 +890,8 @@
     {\thmname{#1.}{\thmnote{ {\normalfont\sc #3.}}}} 
 
   \newtheoremstyle{proof}
-    {1em}
-    {1em}
+    {\baselineskip}
+    {\baselineskip}
     {}
     {0em}
     {\bf}
@@ -725,6 +912,7 @@
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
 \newtheorem*{ramble}{Ramble}
 			
 \let\tempendproof=\endproof
@@ -771,6 +959,8 @@
 
 
 \ifdefined\ttitle%accepts predefinition of tteacher,tauthor,tterm
+  \font\sct=cmcsc10 scaled1200
+  \font\rmu=cmr10 scaled900
   
   \makeatletter
     
@@ -781,25 +971,27 @@
         \raggedright
         \iftitlesamepage\else\vspace*{\fill}\fi
         \begin{center}
-          {\Large\sc \ttitle}\\\vspace*{1em}
+          {\sct \ttitle}\\\vskip0.5em
           \ifdefined\tteacher
-            {\large Based on lectures by \tteacher}\\[0.1em]
+            {Lectures by \tteacher}\\
           \fi
           \ifdefined\tauthor
-            {\normalsize Typeset by \tauthor}\\
+            {Typesetting by \tauthor}\\
           \fi
-          {\small Last updated on \today}\\
           \ifdefined\tterm
-            \vspace*{1em}
-            {\normalsize \tterm}\\
+            {\tterm}\\
           \fi
-          \vspace*{2em}
+          \vskip0.5em
+          {\rmu Last updated on \today}\\
+          \vskip2em
         \end{center}
         \iftitlesamepage\else\vspace*{\fill}\fi
         \iftitlesamepage\else\newpage\fi
         \ifsections
+        \ifnewcontents
           \tableofcontents
           \newpage
+        \fi
         \fi
       }
     }
