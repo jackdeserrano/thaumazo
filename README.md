@@ -1,1 +1,3 @@
-Download and put `\usepackage{thaumazo}` in a preamble.
+### Thaumazo
+
+A style file for mathematics.
